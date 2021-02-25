@@ -1,0 +1,22 @@
+MASK COLUMN
+-----------
+
+ALTER TABLE Membership  
+ALTER COLUMN LastName varchar(100) MASKED WITH (FUNCTION = 'default()');  
+
+PARTIAL MASKING
+---------------
+ALTER TABLE Membership  
+ALTER COLUMN LastName ADD MASKED WITH (FUNCTION = 'partial(2,"XXX",0)');  
+
+
+UNMASK DATA
+-----------
+
+ALTER TABLE Membership   
+ALTER COLUMN LastName DROP MASKED;  
+
+--------------------------------------------------------------------
+NOTE: Masking does not work on same priviledged user. If masking code executed by DBA it works on RW users.
+But it does not work on DBA & DBO. So once you mask a column, you need to test it from a subordinate user.
+ 
